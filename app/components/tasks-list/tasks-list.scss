@@ -1,0 +1,39 @@
+@import "../_common";
+
+.task-container {
+  text-align: center;
+  margin: 20px;
+
+  .task-card {
+    text-align: left;
+    width: $main-width;
+    display: inline-block;
+    box-shadow: $pristine-shadow;
+
+    &.task-done {
+      background-color: rgba(0, 0, 0, 0.06);
+
+      .task-header {
+        text-decoration: line-through;
+      }
+    }
+
+    &:hover {
+      box-shadow: $hovered-shadow;
+
+      .task-card-actions {
+        opacity: 1;
+      }
+    }
+
+    .task-card-actions {
+      opacity:0;
+
+      .task-action-icon {
+        padding: 0 0 0 10px;
+      }
+    }
+  }
+
+
+}
