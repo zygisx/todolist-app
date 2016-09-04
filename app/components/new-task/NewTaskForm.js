@@ -3,29 +3,34 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-// TODO: define props
 class NewTaskForm extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.validation = new FormValidation()
-
     this.state = {
       title: '',
-      description: ''
+      description: '',
+      errors: {}
     }
   }
 
     onSave = () => {
-      this.props.onSave(this.state)
+      const taskPrepared = _.omit(this.state, 'errors')
+      this.props.onSave(taskPrepared)
     }
 
     stateChange = (e) => {
       this.setState(
         { [e.target.name]: e.target.value },
-        () => this.setState(this.validation.validate(this.state))
+        this.validate
       );
+    }
+
+    validate() {
+      this.setState({
+          errors: this.validation.validate(this.state)
+      });
     }
 
     render() {
@@ -38,7 +43,7 @@ class NewTaskForm extends React.Component {
             underlineShow={true}
             name="title"
             onChange={this.stateChange}
-            errorText={this.state.titleError}
+            errorText={this.state.errors.title}
             />
 
           <TextField
@@ -61,6 +66,13 @@ class NewTaskForm extends React.Component {
     }
 }
 
+NewTaskForm .propTypes = {
+  onSave: React.PropTypes.func.isRequired,
+  onCancel: React.PropTypes.func.isRequired
+}
+
+
+//TODO: maybe move it ?
 class FormValidation {
   constructor() {
     this._reset();
@@ -70,22 +82,22 @@ class FormValidation {
     this._reset();
     let titleLenght = formFields.title.length
     if (titleLenght === 0) {
-      this.errors.titleError = 'Title field is required';
+      this.errors.title = 'Title field is required';
     } else if (titleLenght > 20) {
-      this.errors.titleError = "Title field can't be longer then 20 characters";
+      this.errors.title = "Title field can't be longer then 20 characters";
     } else {
-      this.errors.titleError = '';
+      this.errors.title = '';
     }
     return this.errors;
   }
 
   hasErrors = () => {
-    return !!this.errors.titleError;
+    return !!this.errors.title;
   }
 
   _reset = () =>  {
     this.errors = {
-      titleError: ''
+      title: ''
     }
   }
 }

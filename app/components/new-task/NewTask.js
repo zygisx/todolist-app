@@ -32,7 +32,7 @@ class NewTask extends React.Component {
 
       this.props.onNewTask(task).then(
         () => successCallback(),
-        () => console.log("ERROR")
+        (err) => console.log(err)
       )
     }
 

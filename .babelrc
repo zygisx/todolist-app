@@ -1,3 +1,10 @@
 {
-  "presets" : ["es2015", "stage-1", "react"]
+  "presets" : ["es2015", "stage-1", "react"],
+  "plugins": [
+    // plugin to make server side imports non relative and more maintainable
+    ["babel-root-import", [{
+      "rootPathPrefix": "~",
+      "rootPathSuffix": "server/"
+    }]]
+  ]
 }

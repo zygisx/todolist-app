@@ -5,7 +5,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import App from 'components/App'
 
 import _ from 'lodash'; // to get lodash loaded by webpack
-import 'material-design-icons'; // to get lodash loaded by webpack
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941

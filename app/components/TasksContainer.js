@@ -17,7 +17,6 @@ class TasksContainer extends React.Component {
 
 
     updateTasks() {
-      console.log("updating")
       TasksService.all().then(
         (tasks) => this.setState({tasks: tasks})
       )
