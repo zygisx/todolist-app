@@ -1,8 +1,6 @@
 
 import HttpConnector from 'services/HttpConnector'
 
-
-const byIdPredicate = id => (t) => t.id === id // use it!!!
 const URL = '/api/tasks'
 
 const toJson = resp => resp.json()
@@ -22,7 +20,7 @@ class TasksService {
   }
 
   update(task) {
-    return HttpConnector.put(`${URL}/${task.id}`, task)
+    return HttpConnector.put(`${URL}/${task._id}`, task)
   }
 }
 

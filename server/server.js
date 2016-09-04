@@ -1,35 +1,25 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import Storage from '~/storage'
+import MongoWrapper from '~/db/mongo'
+
+import * as TasksApi from '~/tasks/api'
+
+
 
 const app = express();
+MongoWrapper.connect('mongodb://localhost:27017/todo')
 
 app.use(bodyParser.json())
 app.use(express.static('build'));
 
-app.get('/api/tasks', function (req, res) {
-  const tasks = Storage.all();
-  res.send(tasks);
-});
 
-app.post('/api/tasks', function (req, res) {
-  console.log(req.body);
-  const task = Storage.insert(req.body);
-  res.send(task);
-});
-
-app.delete('/api/tasks/:id', function (req, res) {
-  console.log(req.params.id)
-  Storage.delete(parseInt(req.params.id));
-  res.send();
-});
-
-app.put('/api/tasks/:id', function (req, res) {
-  Storage.update(req.body);
-  res.send();
-});
+// Routes:
+app.get('/api/tasks', TasksApi.all)
+app.post('/api/tasks', TasksApi.create)
+app.put('/api/tasks/:id', TasksApi.update)
+app.delete('/api/tasks/:id', TasksApi.remove)
 
 
 app.listen(8080, function () {
-  console.log('Example app listening on port 3000!');
+  console.log('Example app listening on port 8080!');
 });

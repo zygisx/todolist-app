@@ -28,7 +28,7 @@ class TasksContainer extends React.Component {
     }
 
     handleTaskDelete(task) {
-      return TasksService.delete(task.id)
+      return TasksService.delete(task._id)
               .then(() => this.updateTasks())
     }
 
@@ -63,7 +63,7 @@ class TasksContainer extends React.Component {
 
       const tasks = this.state.tasks;
       if (!_.isEmpty(tasks)) {
-        return tasks.map(task => <TaskCard key={task.id} task={task} {...handlers}/>)
+        return tasks.map(task => <TaskCard key={task._id} task={task} {...handlers}/>)
       }
     }
 
