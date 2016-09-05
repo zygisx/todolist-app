@@ -1,24 +1,24 @@
-import 'whatwg-fetch';
 
+/* global fetch:false */
 class HttpConnector {
 
-  get(url) {
+  get (url) {
     return fetch(url)
   }
 
-  post(url, body) {
+  post (url, body) {
     return fetch(url, this._config('POST', body))
   }
 
-  delete(url) {
+  delete (url) {
     return fetch(url, this._config('DELETE', undefined))
   }
 
-  put(url, body) {
+  put (url, body) {
     return fetch(url, this._config('PUT', body))
   }
 
-  _config(method, body) {
+  _config (method, body) {
     return {
       method: method,
       headers: {
@@ -30,4 +30,4 @@ class HttpConnector {
   }
 }
 
-module.exports = new HttpConnector();
+export default new HttpConnector()

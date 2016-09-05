@@ -5,7 +5,6 @@ import 'components/_common.scss'
 import TasksContainer from 'components/TasksContainer'
 import Header from 'components/Header'
 
-
 class App extends React.Component {
   render () {
     return (
@@ -17,4 +16,4 @@ class App extends React.Component {
   }
 }
 
-module.exports = App
+export default App

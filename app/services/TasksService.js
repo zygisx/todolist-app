@@ -7,21 +7,21 @@ const toJson = resp => resp.json()
 
 class TasksService {
 
-  all() {
+  all () {
     return HttpConnector.get(URL).then(toJson)
   }
 
-  create(task) {
+  create (task) {
     return HttpConnector.post(URL, task).then(toJson)
   }
 
-  delete(id) {
+  delete (id) {
     return HttpConnector.delete(`${URL}/${id}`)
   }
 
-  update(task) {
+  update (task) {
     return HttpConnector.put(`${URL}/${task._id}`, task)
   }
 }
 
-module.exports = new TasksService();
+export default new TasksService()

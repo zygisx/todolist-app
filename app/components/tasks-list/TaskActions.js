@@ -15,17 +15,17 @@ const iconStyles = {
 }
 
 const actionIconProps = {
-  className: "task-action-icon md-18",
+  className: 'task-action-icon md-18',
   color: grey500,
   hoverColor: grey900,
   style: iconStyles
 }
 
 const TaskActions = (props) => (
-  <CardActions className="task-card-actions" style={containerStyle}>
-    {props.showDelete ? <ActionDelete  {...actionIconProps} onClick={props.onDelete}/> : null}
-    {props.showDone   ? <ActionCheckCircle {...actionIconProps} onClick={props.onDone}/> : null}
-    {props.showRepeat ? <AvReplay {...actionIconProps} onClick={props.onRepeat}/> : null}
+  <CardActions className='task-card-actions' style={containerStyle}>
+    {props.showDone ? <ActionCheckCircle {...actionIconProps} onClick={props.onDone} /> : null}
+    {props.showRepeat ? <AvReplay {...actionIconProps} onClick={props.onRepeat} /> : null}
+    {props.showDelete ? <ActionDelete {...actionIconProps} onClick={props.onDelete} /> : null}
   </CardActions>
 )
 
@@ -45,4 +45,4 @@ TaskActions.defaultProps = {
   showRepeat: true
 }
 
-module.exports = TaskActions;
+module.exports = TaskActions

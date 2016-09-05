@@ -18,4 +18,4 @@ const CardNoShadow = (props) => (
   />
 )
 
-module.exports = CardNoShadow;
+export default CardNoShadow

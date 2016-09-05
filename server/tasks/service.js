@@ -6,24 +6,22 @@ const COLLECTION = 'tasks'
 
 class TasksService {
 
-  all() {
+  all () {
     return MongoWrapper.getAll(COLLECTION)
   }
 
-  insert(task) {
-    const newTask = _.assign({isDone: false}, task)
-    console.log(task)
+  insert (task) {
+    const newTask = _.assign({isDone: false, createdAt: new Date()}, task)
     return MongoWrapper.insert(COLLECTION, newTask)
   }
 
-  update(id, task) {
+  update (id, task) {
     return MongoWrapper.update(COLLECTION, id, task)
   }
 
-  remove(id) {
+  remove (id) {
     return MongoWrapper.remove(COLLECTION, id)
   }
 }
-
 
 export default new TasksService()
