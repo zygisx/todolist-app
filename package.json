@@ -6,12 +6,13 @@
     "sync-frontend": "webpack -d -w",
     "start-dev-server": "./node_modules/.bin/nodemon server/server.js --exec ./node_modules/.bin/babel-node",
     "start": "./node_modules/.bin/concurrently 'npm run sync-frontend' 'npm run start-dev-server'",
-    "build-dev": "webpack -d",
+    "start-prod": "./node_modules/.bin/webpack -p && ./node_modules/.bin/babel server -d build && node build/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "z.gatelis",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "lodash": "^4.15.0",
     "material-ui": "^0.15.4",

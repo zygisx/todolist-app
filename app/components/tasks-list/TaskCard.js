@@ -1,11 +1,10 @@
 import React from 'react'
-import {CardHeader, CardText} from 'material-ui/Card'
+import _ from 'lodash'
 import moment from 'moment'
+import {CardHeader, CardText} from 'material-ui/Card'
 
 import CardNoShadow from 'components/common/CardNoShadow'
 import TaskActions from 'components/tasks-list/TaskActions'
-
-import 'components/tasks-list/tasks-list.scss'
 
 const titleStyle = (task) => {
   if (task.isDone) {
@@ -13,8 +12,8 @@ const titleStyle = (task) => {
   } else return {}
 }
 
-const handlerFn = (props, fnName) => {
-  return () => props[fnName](props.task)
+const handlerFunctions = (props) => {
+  return _.mapValues(props.handlers, (handler) => () => handler(props.task))
 }
 
 const actionsShowParams = (task) => {
@@ -30,7 +29,6 @@ const createdAt = (date) => moment(date).format('D MMM, YYYY')
 const TaskCard = (props) => (
   <div className='task-container'>
     <CardNoShadow className={`task-card ${props.task.isDone ? 'task-done' : ''}`}>
-
       <CardHeader
         className='task-header'
         title={props.task.title}
@@ -38,14 +36,11 @@ const TaskCard = (props) => (
         actAsExpander
         showExpandableButton
         />
-      // FIXME!
       <CardText expandable>
           {props.task.description}
       </CardText>
       <TaskActions
-        onDelete={handlerFn(props, 'onDelete')}
-        onDone={handlerFn(props, 'onDone')}
-        onRepeat={handlerFn(props, 'onRepeat')}
+        {...handlerFunctions(props)}
         {...actionsShowParams(props.task)}
         />
       <span className='task-date'>{createdAt(props.task.createdAt)}</span>
@@ -61,9 +56,7 @@ TaskCard.propTypes = {
     createdAt: React.PropTypes.string.isRequired
   }).isRequired,
 
-  onDelete: React.PropTypes.func.isRequired,
-  onDone: React.PropTypes.func.isRequired,
-  onRepeat: React.PropTypes.func.isRequired
+  handlers: React.PropTypes.object.isRequired
 }
 
 module.exports = TaskCard

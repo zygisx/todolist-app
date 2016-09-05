@@ -7,7 +7,7 @@ const COLLECTION = 'tasks'
 class TasksService {
 
   all () {
-    return MongoWrapper.getAll(COLLECTION)
+    return MongoWrapper.getAll(COLLECTION, {createdAt: -1})
   }
 
   insert (task) {

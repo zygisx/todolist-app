@@ -3,9 +3,10 @@ import bodyParser from 'body-parser'
 import MongoWrapper from '~/db/mongo'
 
 import * as TasksApi from '~/tasks/api'
+import config from '~/config'
 
 const app = express()
-MongoWrapper.connect('mongodb://localhost:27017/todo')
+MongoWrapper.connect(config.db.url)
 
 app.use(bodyParser.json())
 app.use(express.static('build'))
@@ -16,6 +17,7 @@ app.post('/api/tasks', TasksApi.create)
 app.put('/api/tasks/:id', TasksApi.update)
 app.delete('/api/tasks/:id', TasksApi.remove)
 
-app.listen(8080, function () {
-  console.log('Example app listening on port 8080!')
+const port = process.env.PORT || config.app.port
+app.listen(port, function () {
+  console.log(`Example app listening on port ${port}!`)
 })

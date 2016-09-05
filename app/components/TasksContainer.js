@@ -2,7 +2,7 @@ import React from 'react'
 import _ from 'lodash'
 
 import NewTask from 'components/new-task/NewTask'
-import TaskCard from 'components/tasks-list/TaskCard'
+import TasksList from 'components/tasks-list/TasksList'
 import TasksService from 'services/TasksService'
 
 class TasksContainer extends React.Component {
@@ -10,14 +10,22 @@ class TasksContainer extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      tasks: []
+      tasks: [],
+      filters: {},
     }
     this.updateTasks()
+
+    this.actionHandlers = {
+      onDelete: this.handleTaskDelete.bind(this),
+      onDone: this.handleTaskDone.bind(this),
+      onRepeat: this.handleTaskRepeat.bind(this)
+    }
+    this._applyFilter = this.applyFilter.bind(this)
   }
 
   updateTasks () {
     TasksService.all().then(
-      (tasks) => this.setState({tasks: tasks})
+      (tasks) => this.setState({tasks: tasks, tasksView: tasks})
     )
   }
 
@@ -43,26 +51,34 @@ class TasksContainer extends React.Component {
             .then(() => this.updateTasks())
   }
 
-  render () {
-    return (
-      <div>
-        <NewTask onNewTask={this.handleTaskSave.bind(this)} />
-        {this.renderTasks()}
-      </div>
-    )
+  handleShowCompleted (showCompleted) {
+    this.setState({showCompleted: showCompleted})
   }
 
-  renderTasks () {
-    const handlers = {
-      onDelete: this.handleTaskDelete.bind(this),
-      onDone: this.handleTaskDone.bind(this),
-      onRepeat: this.handleTaskRepeat.bind(this)
-    }
+  handleShowCompletedCreatedToday (showCreatedToday) {
+    this.setState({showCreatedToday: showCreatedToday})
+  }
 
-    const tasks = this.state.tasks
-    if (!_.isEmpty(tasks)) {
-      return tasks.map(task => <TaskCard key={task._id} task={task} {...handlers} />)
-    }
+  applyFilter (key, filter) {
+    let currentFilters = this.state.filters
+    currentFilters[key] = filter
+    this.setState({filters: currentFilters})
+  }
+
+  tasks () {
+    const filters = _.values(this.state.filters)
+    let tasks = this.state.tasks
+    _.each(filters, f => tasks = _.filter(tasks, f))
+    return tasks
+  }
+
+  render () {
+    return (
+      <div className='tasks-container'>
+        <NewTask onNewTask={this.handleTaskSave.bind(this)} />
+        <TasksList tasks={this.tasks()} actionHandlers={this.actionHandlers} applyFilter={this._applyFilter} />
+      </div>
+    )
   }
 }
 

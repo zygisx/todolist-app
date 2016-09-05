@@ -25,10 +25,10 @@ class MongoWrapper {
     })
   }
 
-  getAll (collectionName) {
+  getAll (collectionName, sort = {}) {
     let collection = this.db.collection(collectionName)
     return new Promise((resolve, reject) => {
-      collection.find().toArray(this._callback(resolve, reject))
+      collection.find().sort(sort).toArray(this._callback(resolve, reject))
     })
   }
 
