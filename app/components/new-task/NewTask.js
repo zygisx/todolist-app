@@ -28,11 +28,12 @@ class NewTask extends React.Component {
       this.setState({showSnackBar: true, snackBarMessage: 'Task created!'})
       this.toogleCover()
     }
+    const errorCallback = (err) => {
+      err.bodyPromise.then(body => this.setState(
+        {showSnackBar: true, snackBarMessage: `Failed to create task! ${body.message}`}))
+    }
 
-    this.props.onNewTask(task).then(
-      () => successCallback(),
-      (err) => console.log(err)
-    )
+    this.props.onNewTask(task).then(successCallback, errorCallback)
   }
 
   render () {

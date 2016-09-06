@@ -1,28 +1,38 @@
-
+import _ from 'lodash'
 /**
- * Simple but useful form validation base class.
+ * Simple form validation base class.
  * To use this you should:
  *  - extend FormValidation class
- *  - implement validate method - fill super.errors according to validation rules
+ *  - pass template with empty error messages
+ *  - implement validateInternal method - fill this.errors according to form validation rules
  *  - call validate whenever you want to do validation
- *  - access this.errors to see
+ *  - access super.errors to see error messages
+ *  - access super.hasErrors() to see if any errors present
  */
 class FormValidation {
-  constructor() {
-    this._reset();
+  constructor (template) {
+    this.template = template
+    this._reset()
   }
 
-  validate = (formFields) => {
-    this._reset();
-    return this.errors;
+  validate (formFields) {
+    this._reset()
+    this.validateInternal(formFields)
+    return this.errors
   }
 
-  hasErrors = () => {
-    let nonEmptyErrors = _filter(_.values(this.errors), _.isEmpty)
-    return !_.isEmpty(nonEmptyErrors);
+  validateInternal (formFields) {
+    throw Error('This method should be overrided')
   }
 
-  _reset = () =>  {
-    this.errors = {};
+  hasErrors () {
+    let nonEmptyErrors = _.filter(_.values(this.errors), _.negate(_.isEmpty))
+    return !_.isEmpty(nonEmptyErrors)
+  }
+
+  _reset () {
+    this.errors = _.cloneDeep(this.template)
   }
 }
+
+export default FormValidation

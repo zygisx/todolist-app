@@ -3,12 +3,13 @@ import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import _ from 'lodash'
+import FormValidation from 'utils/FormValidation'
 
 class NewTaskForm extends React.Component {
 
   constructor (props) {
     super(props)
-    this.validation = new FormValidation()
+    this.validation = new NewTaskFormValidation()
     this.state = {
       title: '',
       description: '',
@@ -58,12 +59,13 @@ class NewTaskForm extends React.Component {
           fullWidth
           name='description'
           onChange={this._onStateChange} />
-
-        <RaisedButton className='new-task-button' label='Save' primary
-          disabled={this.validation.hasErrors()}
-          onClick={this._onSave} />
-        <RaisedButton className='new-task-button' label='Cancel'
-          onClick={this.props.onCancel} />
+        <div className='new-task-form-actions'>
+          <RaisedButton className='new-task-action-button' label='Save' primary
+            disabled={this.validation.hasErrors()}
+            onClick={this._onSave} />
+          <RaisedButton className='new-task-action-button' label='Cancel'
+            onClick={this.props.onCancel} />
+        </div>
       </Paper>
     )
   }
@@ -74,14 +76,14 @@ NewTaskForm.propTypes = {
   onCancel: React.PropTypes.func.isRequired
 }
 
-// TODO: maybe move it ?
-class FormValidation {
+class NewTaskFormValidation extends FormValidation {
   constructor () {
-    this._reset()
+    super({
+      title: ''
+    })
   }
 
-  validate (formFields) {
-    this._reset()
+  validateInternal (formFields) {
     let titleLenght = formFields.title.length
     if (titleLenght === 0) {
       this.errors.title = 'Title field is required'
@@ -90,23 +92,7 @@ class FormValidation {
     } else {
       this.errors.title = ''
     }
-    return this.errors
   }
-
-  hasErrors () {
-    return !!this.errors.title
-  }
-
-  _reset () {
-    this.errors = {
-      title: ''
-    }
-  }
-}
-
-NewTaskForm.propTypes = {
-  onCancel: React.PropTypes.func.isRequired,
-  onSave: React.PropTypes.func.isRequired
 }
 
 export default NewTaskForm

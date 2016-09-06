@@ -11,7 +11,7 @@ class TasksContainer extends React.Component {
     super(props)
     this.state = {
       tasks: [],
-      filters: {},
+      filters: {}
     }
     this.updateTasks()
 
@@ -31,7 +31,8 @@ class TasksContainer extends React.Component {
 
   handleTaskSave (task) {
     return TasksService.create(task)
-            .then(() => this.updateTasks())
+            .then(
+              () => this.updateTasks())
   }
 
   handleTaskDelete (task) {
