@@ -6,7 +6,6 @@ import * as TasksApi from '~/tasks/api'
 import config from '~/config'
 
 const app = express()
-MongoWrapper.connect(config.db.url)
 
 app.use(bodyParser.json())
 app.use(express.static('build'))
@@ -19,5 +18,9 @@ app.delete('/api/tasks/:id', TasksApi.remove)
 
 const port = process.env.PORT || config.app.port
 app.listen(port, function () {
+  console.log('Connecting to mongo...')
+  MongoWrapper.connect(config.db.url)
   console.log(`Example app listening on port ${port}!`)
 })
+
+export default app

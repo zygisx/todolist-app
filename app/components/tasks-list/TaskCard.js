@@ -24,7 +24,7 @@ const actionsShowParams = (task) => {
   }
 }
 
-const createdAt = (date) => moment(date).format('D MMM, YYYY')
+const createdAt = (date) => moment(date).format('D MMM, YYYY HH:mm')
 
 const TaskCard = (props) => (
   <div className='task-container'>

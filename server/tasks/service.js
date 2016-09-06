@@ -16,7 +16,8 @@ class TasksService {
   }
 
   update (id, task) {
-    return MongoWrapper.update(COLLECTION, id, task)
+    const updatable = _.pick(task, ['isDone']) // pick only mutable properties
+    return MongoWrapper.update(COLLECTION, id, updatable)
   }
 
   remove (id) {

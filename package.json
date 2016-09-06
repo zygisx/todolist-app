@@ -7,7 +7,7 @@
     "start-dev-server": "./node_modules/.bin/nodemon server/server.js --exec ./node_modules/.bin/babel-node",
     "start": "./node_modules/.bin/concurrently 'npm run sync-frontend' 'npm run start-dev-server'",
     "start-prod": "./node_modules/.bin/webpack -p && ./node_modules/.bin/babel server -d build && node build/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register -R spec tests"
   },
   "author": "z.gatelis",
   "license": "ISC",
@@ -32,15 +32,19 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-preset-stage-1": "^6.13.0",
     "babel-root-import": "^4.1.1",
+    "chai": "^3.5.0",
     "concurrently": "^2.2.0",
     "copy-webpack-plugin": "^3.0.1",
     "css-loader": "^0.24.0",
     "eslint": "^3.4.0",
     "extract-text-webpack-plugin": "^1.0.1",
+    "mocha": "^3.0.2",
     "node-sass": "^3.8.0",
     "nodemon": "^1.10.2",
     "sass-loader": "^4.0.0",
+    "sinon": "^1.17.5",
     "style-loader": "^0.13.1",
+    "supertest": "^2.0.0",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.15.0"
   }

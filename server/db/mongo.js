@@ -14,7 +14,7 @@ class MongoWrapper {
         throw err
       }
       this.db = db
-      console.log('Connection successful!')
+      console.log('Connected to MongoDB!')
     })
   }
 
@@ -41,11 +41,10 @@ class MongoWrapper {
 
   update (collectionName, id, newJson) {
     let collection = this.db.collection(collectionName)
-    let updatedJson = _.omit(newJson, '_id')
     return new Promise((resolve, reject) => {
       collection.update(
         {_id: new ObjectID(id)},
-        {$set: updatedJson},
+        {$set: newJson},
         {w: 1},
         this._callback(resolve, reject))
     })
