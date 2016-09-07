@@ -1,8 +1,9 @@
 import request from 'supertest'
 import sinon from 'sinon'
 import {assert} from 'chai'
-import app from './../server/server'
-import MongoWrapper from './../server/db/mongo'
+
+import app from './../../server/server'
+import MongoWrapper from './../../server/db/mongo'
 import {promise} from './test_utils'
 
 /*

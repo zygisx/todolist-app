@@ -26,7 +26,8 @@ class Filter extends React.Component {
   render () {
     const style = { width: '200px' }
     return (
-      <Toggle label={this.props.label} onToggle={this._onToggle} style={style} defaultToggled={this.props.selected} />
+      <Toggle label={this.props.label} onToggle={this._onToggle} style={style} defaultToggled={this.props.selected}
+        className={this.props.className} />
     )
   }
 }
@@ -35,6 +36,7 @@ Filter.propTypes = {
   filterName: React.PropTypes.string.isRequired,
   selected: React.PropTypes.bool.isRequired,
   label: React.PropTypes.string.isRequired,
+  className: React.PropTypes.string.isRequired,
   filterUnselected: React.PropTypes.func.isRequired,
   filterSelected: React.PropTypes.func.isRequired,
   handler: React.PropTypes.func.isRequired
@@ -46,9 +48,9 @@ const ShowOnlyTodays = (task) => moment(task.createdAt).isSame(moment(), 'day')
 
 const TaskFilters = (props) => (
   <div className='tasks-filters'>
-    <Filter label='Show completed' selected filterName='completed-filter'
+    <Filter label='Show completed' selected filterName='completed-filter' className='show-completed-filter'
       filterSelected={AllwaysTrue} filterUnselected={ShowCompletedFilter} handler={props.applyFilter} />
-    <Filter label='Created today' selected={false} filterName='only-today-filter'
+    <Filter label='Created today' selected={false} filterName='only-today-filter' className='created-today-filter'
       filterSelected={ShowOnlyTodays} filterUnselected={AllwaysTrue} handler={props.applyFilter} />
   </div>
 )

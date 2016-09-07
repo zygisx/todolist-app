@@ -47,9 +47,7 @@ class NewTaskForm extends React.Component {
           underlineShow
           name='title'
           onChange={this._onStateChange}
-          errorText={this.state.errors.title}
-          />
-
+          errorText={this.state.errors.title} />
         <TextField
           className='new-task-description'
           floatingLabelText='Description'
@@ -60,10 +58,10 @@ class NewTaskForm extends React.Component {
           name='description'
           onChange={this._onStateChange} />
         <div className='new-task-form-actions'>
-          <RaisedButton className='new-task-action-button' label='Save' primary
+          <RaisedButton className='new-task-action-button save-button' label='Save' primary
             disabled={this.validation.hasErrors()}
             onClick={this._onSave} />
-          <RaisedButton className='new-task-action-button' label='Cancel'
+          <RaisedButton className='new-task-action-button cancel-button' label='Cancel'
             onClick={this.props.onCancel} />
         </div>
       </Paper>
@@ -78,9 +76,7 @@ NewTaskForm.propTypes = {
 
 class NewTaskFormValidation extends FormValidation {
   constructor () {
-    super({
-      title: ''
-    })
+    super({ title: '' })
   }
 
   validateInternal (formFields) {
