@@ -35,9 +35,20 @@ This command will:
   - starts `nodejs` server
 
 **Run tests**
+
+Run all tests:
 ```
 $ npm test
 ```
+Run backend tests:
+```
+$ npm run server-tests
+```
+Run frontend tests:
+```
+$ npm run frontend-tests
+```
+
 
 ### Architecture
 
@@ -51,7 +62,9 @@ App url: https://zee-todo-app.herokuapp.com/ (first page load may take some time
 ├── build             - webpack builded frontend static files. Created during build
 ├── dist              - server side builded code. Created during build
 ├── server            - server side code
-├── tests             - tests
+├── tests             
+    ├── backend       - backend tests
+    └── frontend      - frontend tests; only few components are covered with unit tests
 ├── Procfile          - heroku instruction how to run app
 ├── package.json      - npm dependencies and scripts
 └── webpack.config.js - webpack configuration a.k.a. frontend build configuration
@@ -83,5 +96,6 @@ App url: https://zee-todo-app.herokuapp.com/ (first page load may take some time
 **Tests:**
  - `mocha` - tests runner
  - `supertest` - HTTP assertions lib, for testing REST api
- -  `sinon` - mocking dependencies
- -  `chai` - assertion library
+ - `sinon` - mocking dependencies
+ - `chai` - assertion library
+ - `enzyme` - ReactJs components testing library
