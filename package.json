@@ -6,7 +6,7 @@
     "sync-frontend": "webpack -d -w",
     "start-dev-server": "./node_modules/.bin/nodemon server/server.js --exec ./node_modules/.bin/babel-node",
     "start": "./node_modules/.bin/concurrently 'npm run sync-frontend' 'npm run start-dev-server'",
-    "start-prod": "./node_modules/.bin/webpack -p && ./node_modules/.bin/babel server -d build && node build/server.js",
+    "prod": "./node_modules/.bin/webpack -p && ./node_modules/.bin/babel server -d dist && node dist/server.js",
     "test": "./node_modules/.bin/mocha --compilers js:babel-core/register -R spec tests"
   },
   "author": "z.gatelis",

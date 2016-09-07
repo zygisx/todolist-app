@@ -1,5 +1,4 @@
 import {MongoClient, ObjectID} from 'mongodb'
-import _ from 'lodash'
 
 /**
  * Wraps Mongo db client.
